@@ -11,7 +11,7 @@ A codificação pode ser feita a qualquer momento e tera um prazo de entrega e o
 
 Candidatos 1 | Candidatos 2
 ---------    | ------
-Valdeilton   | 
+Valdeilton   | Flavio
    
   
  ## Branch
