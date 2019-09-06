@@ -1,4 +1,6 @@
 import ast
+import os
+import sys
 class Serializada:
     
     def rum(self,rum):
@@ -36,12 +38,33 @@ class Serializada:
         """
         return dadosUpdate;
 
-    def deleteTxt(self,dadosDelet):
+    def deleteTxt(self,nomeArquivo,dadosDelet,where):
         """
         Methodo que deleta o registro no arquivo txt
         """
-        return dadosDelet;
-    
+        print(nomeArquivo);
+        
+        try:
+            result=""
+            d=list()
+            with open(nomeArquivo, 'r') as f:
+                bandas = f.readlines()
+                cont=0;
+                for linhas in bandas:
+                    striparse=linhas.replace('\n',"")
+                    dadoscovert=ast.literal_eval(striparse);          
+                    if dadoscovert[where]!=dadosDelet:
+                        d.append(dadoscovert)
+                    else:
+                        cont+=1
+
+            with open(nomeArquivo,"w") as arq:
+                     arq.write(self.convertList(d).replace("},","}\n"))
+
+        except IOError:
+            print("Não foi possivel excuta operação sobre o arquivo")
+            
+            
     def selectTxt(self,nomeArquivo,optinon,values="",where=""):
         result="";
         """Methodo que faz o select no arquivo txt e retorna os dados
@@ -57,7 +80,7 @@ class Serializada:
                     for i in re:
                         valor=ast.literal_eval(i)
                         if valor[where]==values:
-                             result={"id":str(valor["id"]),"senha":valor["senha"],"login":valor["login"]}
+                             result={"id":int(str(valor["id"])),"senha":valor["senha"],"login":valor["login"]}
                              break;                
                 
                  else:
@@ -75,6 +98,7 @@ class Serializada:
         s = [str(i) for i in lista] 
         res = ",".join(s);
         return res;
+        
     def sequence(self,nomeArquivo):
         
          try:
